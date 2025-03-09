@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Music Nest 🎵</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="utility.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lobster&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://www.youtube.com/iframe_api"></script>
+  </head>
+  <body>
+    <div class="container flex">
+      <div class="navdiv display backgroundPinkBlend allign-items">
+        <div class="music headingFont">MUSIC</div>
+
+        <div class="hamburger" onclick="toggleMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+        <ul class="nav-links normalFont">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Playlist</a></li>
+          <li><a href="#">Artists</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="bodyContainer display">
+      
+      <div class="musicControls">
+        <div class="songIcon">
+          <img src="Images/om.png" alt="pic">
+        </div>
+        <div class="songDetails">
+          <div class="sName">Om Jai Jagdish Hare</div>
+          <div class="aName">Anuradha Paudwal</div>  
+        </div>
+        <div class="controlSymbols">
+          <svg
+              class="playBtn"
+              width="72"
+              height="160"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              width="50px"
+              height="50px"
+            >
+              <path d="M8 5v14l11-7z" />
+            </svg>
+            <svg
+              class="pauseBtn"
+              width="72"
+              height="160"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              width="50px"
+              height="50px"
+            >
+              <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+            </svg>
+            <svg
+              class="nextBtn"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 100 100"
+              width="100"
+              height="100"
+            >
+              <polygon points="10,10 50,50 10,90" fill="#a22844" />
+              <polygon points="50,10 90,50 50,90" fill="#a22844" />
+            </svg>
+            <svg
+              class="prevBtn"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 100 100"
+              width="100"
+              height="100"
+            >
+              <polygon points="90,10 50,50 90,90" fill="#a22844" />
+              <polygon points="50,10 10,50 50,90" fill="#a22844" />
+            </svg>
+        </div>
+        <audio id="audioPlayer"></audio>
+        <div class="musicLvl">
+          <div class="progressTime"></div>
+          <div class="songProgressBar"></div>
+        </div>
+      </div>
+      
+
+      <div class="left backgroundPinkBlend">
+        <img class="logo" src="Images/MusicNestlogo.png" alt="logo" />
+        <div class="normalFont">Playlists</div>
+        <div class="playlists display">
+          <div class="playlist1">
+            <img src="Images/Music app icon.jpeg" alt="" />
+          </div>
+          <div class="playlist2">
+            <img src="Images/play2.jpeg" alt="" />
+          </div>
+          <div class="playlist3">
+            <img src="Images/plat2.jpg" alt="" />
+          </div>
+          <div class="playlist4">
+            <img src="Images/play4.jpg" alt="" />
+          </div>
+        </div>
+      </div>
+      <div class="right backgroundPinkBlend">
+        <div class="playerBg display">
+          <div class="pbg">
+            <img src="Images/playerBackground2.png" alt="player" />
+          </div>
+        </div>
+
+        <div class="DevotionalList"></div>
+
+        <div class="artists display">
+          <div class="trndy1">
+            <div class="artist headingFont display">&nbsp;  Devotional</div>
+            <img src="Images/om.png" alt="trnd" />
+          </div>
+          <div class="trndy2">
+            <div class="artist headingFont display">&nbsp; &nbsp; Trendy </div>
+            <img src="Images/art2.webp" alt="trnd" />
+          </div>
+          <div class="trndy3">
+            <div class="artist headingFont display">Old songs</div>
+            <img src="Images/art3.jpeg" alt="trnd" />
+          </div>
+          <div class="trndy4">
+            <div class="artist headingFont display">Podcasts</div>
+            <img src="Images/art5.jpeg" alt="trnd" />
+          </div>
+          <div class="trndy4">
+            <div class="artist headingFont display">Podcasts</div>
+            <img src="Images/art5.jpeg" alt="trnd" />
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>
