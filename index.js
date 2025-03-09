@@ -3,6 +3,8 @@ function toggleMenu() {
     navbar.classList.toggle('active');
 }
 
+const curr_song = [0, -1];
+
 const songName_in_controls = document.querySelector('.sName');
 const artistName_in_controls = document.querySelector('.aName');
 let audioPlayer = document.getElementById("audioPlayer");
@@ -63,7 +65,22 @@ const playerBg = document.querySelector('.playerBg');
 const defaultPlayerImage = "Images/playerBackground2.png"; // Store the default image path
 const playerImg = document.querySelector('.pbg img');
 
-function renderList(songs) {
+function playSong(playlistIndex, songIndex) {
+    const song = playlists[playlistIndex].songs[songIndex];
+    if (song) {
+        audioPlayer.src = song.EmbedURL;
+        audioPlayer.play();
+        songName_in_controls.innerHTML = song.song_name;
+        artistName_in_controls.innerHTML = song.artist_name;
+        playerImg.src = song.song_img;
+
+        // Update the global current song index
+        curr_song[0] = playlistIndex;
+        curr_song[1] = songIndex;
+    }
+}
+
+function renderList(songs, listIdx) {
     playListContainer.innerHTML = songs.map((song, index) =>
         `
         <div class="dlSong">
@@ -85,19 +102,7 @@ function renderList(songs) {
     songPics.forEach((img) => {
         img.addEventListener('click', function () {
             const songIdx = this.dataset.index;
-
-            if (songs[songIdx]) {
-                // Update the player image and audio source
-                playerImg.src = songs[songIdx].song_img;
-                audioPlayer.src = songs[songIdx].EmbedURL; // Set the audio source
-                audioPlayer.play(); // Play the audio
-                songName_in_controls.innerHTML = songs[songIdx].song_name;
-                artistName_in_controls.innerHTML = songs[songIdx].artist_name;
-                songImage_in_controls.src = songs[songIdx].song_img;
-
-                playerBg.classList.remove('pbg');
-                playerBg.classList.add('pbg2');
-            }
+            playSong(listIdx, songIdx);
         });
     });
 
@@ -106,17 +111,7 @@ function renderList(songs) {
     songNames.forEach((song) => {
         song.addEventListener('click', function () {
             const songIdx = this.dataset.index;
-            if (songs[songIdx]) {
-                playerImg.src = songs[songIdx].song_img;
-                audioPlayer.src = songs[songIdx].EmbedURL; // Set the audio source
-                audioPlayer.play(); // Play the audio
-                songName_in_controls.innerHTML = songs[songIdx].song_name;
-                artistName_in_controls.innerHTML = songs[songIdx].artist_name;
-                songImage_in_controls.src = songs[songIdx].song_img;
-
-                playerBg.classList.remove('pbg');
-                playerBg.classList.add('pbg2');
-            }
+            playSong(listIdx, songIdx);
         });
     });
 }
@@ -125,7 +120,7 @@ function renderList(songs) {
 function togglePlaylist(element, playlistIndex) {
     element.addEventListener('click', function () {
         if (playListContainer.innerHTML.trim() === '') {
-            renderList(playlists[playlistIndex].songs);
+            renderList(playlists[playlistIndex].songs, playlistIndex);
         } else {
             playListContainer.innerHTML = ''; // Clear the playlist
             playerImg.src = defaultPlayerImage; // Reset to default image when playlist is removed
@@ -158,38 +153,48 @@ play.addEventListener('click', function () {
     }
 });
 
+// Next button functionality
 next.addEventListener('click', function () {
-    let currentPlaylist = -1;
-    let currentSong = -1;
+    const currentPlaylist = curr_song[0];
+    const currentSong = curr_song[1];
 
-    // Fetch current song index
-    //forEach => (value_of_curr_ele, idx_of_curr_ele)
-    playlists.forEach((playlist, pIdx) => {
-        playlist.songs.forEach((song, sIdx) => {
-            if (song.EmbedURL === audioPlayer.src) {
-                currentPlaylist = pIdx;
-                currentSong = sIdx;
-            }
-        });
-    });
+    if (currentSong >= 0) { // Ensure a song is currently playing
+        const playlistSongs = playlists[currentPlaylist].songs;
+        const nextSongIndex = currentSong + 1;
 
-    // If the song is not found
-    if (currentPlaylist === -1 || currentSong === -1) {
-        alert('Song not found in the playlist');
-        return;
+        if (nextSongIndex < playlistSongs.length) {
+            playSong(currentPlaylist, nextSongIndex);
+        } else {
+            // Loop back to the first song
+            playSong(currentPlaylist, 0);
+        }
     }
+});
 
-    let playlistSongs = playlists[currentPlaylist].songs;
-    let nextSong = playlistSongs[currentSong + 1];
+// Previous button functionality
+prev.addEventListener('click', function () {
+    const currentPlaylist = curr_song[0];
+    const currentSong = curr_song[1];
 
-    if (nextSong) {
-        audioPlayer.src = nextSong.EmbedURL;
-        audioPlayer.play();
-        songName_in_controls.innerHTML = nextSong.song_name;
-        artistName_in_controls.innerHTML = nextSong.artist_name;
-        playerImg.src = nextSong.song_img;
+    if (currentSong > 0) { // Ensure there is a previous song
+        const prevSongIndex = currentSong - 1;
+        playSong(currentPlaylist, prevSongIndex);
     } else {
-        alert("No more songs in the playlist !!");
+        alert("This is the first song in the playlist !!");
+    }
+});
+
+// Automatically play the next song when the current song ends
+audioPlayer.addEventListener('ended', function () {
+    const currentPlaylist = curr_song[0];
+    const currentSong = curr_song[1];
+    const playlistSongs = playlists[currentPlaylist].songs;
+
+    if (currentSong + 1 < playlistSongs.length) {
+        playSong(currentPlaylist, currentSong + 1);
+    } else {
+        // Loop back to the first song
+        playSong(currentPlaylist, 0);
     }
 });
 
