@@ -318,17 +318,6 @@ li{
     text-overflow: ellipsis;
 }
 
-.songProgressBar{
-    position: absolute;
-    width: 20%;
-    height: 5px;
-    background-color: #a22844;
-    top: 66px;
-    z-index: 1000;
-    border-radius: 10px;
-    left: 43%;
-}
-
 .playBtn, .pauseBtn, .nextBtn, .prevBtn{
     position: absolute;
     color: #a22844 !important;
@@ -360,12 +349,47 @@ li{
     width: 33px;
 }
 
-#musicLvl{
-    position: absolute;
-    width: 20%;
-    margin-top: 10px;
-    margin-left: -25%;
+.timeOver, .timeLeft {
+    color: #a22844;
+    font-size: 20px;
+    font-weight: 500;
+    width: 60px; 
+    text-align: center;
 }
+
+.songProgressBar {
+    flex-grow: 1;
+    max-width: 340px;
+    height: 5px;
+    background-color: #8b88bc;
+    border-radius: 10px;
+    margin: 0;
+    padding: 0;
+}
+
+.SongProgress{
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    height: 5px;
+    background-color: #a22844;
+    cursor: pointer;
+    border-radius: 10px;
+    width: 0%;
+    transition: width 0.2s linear;
+}
+
+.musicLvl {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 39%;
+    margin-top: 3%;
+    gap: 10px;
+    width: 410px;
+}
+
 
 #player {
     width: 0px;
