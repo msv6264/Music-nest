@@ -365,6 +365,7 @@ li{
     border-radius: 10px;
     margin: 0;
     padding: 0;
+    cursor: pointer;
 }
 
 .SongProgress{
@@ -376,6 +377,7 @@ li{
     cursor: pointer;
     border-radius: 10px;
     width: 0%;
+    max-width: 340px;
     transition: width 0.2s linear;
 }
 

@@ -67,7 +67,7 @@ const playListContainer = document.querySelector(".DevotionalList");
 const Devotional = document.querySelector(".trndy1");
 const playerBg = document.querySelector(".playerBg");
 
-const defaultPlayerImage = "Images/playerBackground2.png"; // Store the default image path
+const defaultPlayerImage = "Images/playerBackground2.png";
 const playerImg = document.querySelector(".pbg img");
 
 function formatTime(seconds) {
@@ -82,9 +82,9 @@ function timeToSeconds(timeString) {
 }
 
 function updateProgress(){
-  const progressBar = document.querySelector('.SongProgress');
   const totalTime = document.querySelector('.timeLeft');
   const timeOver = document.querySelector('.timeOver');
+  const progressBar = document.querySelector('.SongProgress');
 
   const currentPlaylist = curr_song[0];
   const currentSong = curr_song[1];
@@ -104,8 +104,19 @@ function updateProgress(){
       totalTime.textContent = formatTime(totTime);
     }
   }
-}
+  // const progressContainer = document.querySelector('.songProgressBar');
+  // progressContainer.addEventListener('click', (e) => {
+  //   if (curr_song[0] === -1 || curr_song[1] === -1) return; 
+  //   let percent = (e.offsetX / progressContainer.clientWidth) * 100;
+  //   console.log("width: " + percent);
+  //   progressBar.style.width = `${percent}%`;
 
+  //   let songTime = (percent / 100) * totTime;
+  //   console.log("songTime: " + songTime);
+  //   audioPlayer.currentTime = songTime;
+  // });
+
+}
 
 function playSong(playlistIndex, songIndex) {
   const song = playlists[playlistIndex].songs[songIndex];
@@ -118,7 +129,6 @@ function playSong(playlistIndex, songIndex) {
     playerImg.src = song.song_img;
     songIcon.src = song.song_img;
 
-    // Update the global current song index
     curr_song[0] = playlistIndex;
     curr_song[1] = songIndex;
 
