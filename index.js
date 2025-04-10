@@ -3,7 +3,7 @@ function toggleMenu() {
   navbar.classList.toggle("active");
 }
 
-const curr_song = [-1, -1];
+const curr_song = [-1,-1];
 
 const songName_in_controls = document.querySelector(".sName");
 const artistName_in_controls = document.querySelector(".aName");
@@ -30,7 +30,7 @@ const playlists = [
         song_name: "Om namah shivaya",
         artist_name: "Amit Trivedi",
         duration: "5:45",
-        EmbedURL: "audio/p2s2.mp3",
+        EmbedURL: "audio/p1s2.mp3",
       },
       {
         song_id: 3,
@@ -39,7 +39,7 @@ const playlists = [
         song_name: "Deva deva",
         artist_name: "Arjit Singh",
         duration: "00:29",
-        EmbedURL: "audio/p3s3.mp3",
+        EmbedURL: "audio/p1s3.mp3",
       },
       {
         song_id: 4,
@@ -48,7 +48,7 @@ const playlists = [
         song_name: "Mukunda Mukunda",
         artist_name: "Kamal Haasan",
         duration: "4:23",
-        EmbedURL: "audio/p4s4.mp3",
+        EmbedURL: "audio/p1s4.mp3",
       },
       {
         song_id: 5,
@@ -57,7 +57,7 @@ const playlists = [
         song_name: "Rayini maatram",
         artist_name: "Himesh Reshammiya",
         duration: "00:29",
-        EmbedURL: "audio/p5s5.mp3",
+        EmbedURL: "audio/p1s5.mp3",
       },
     ],
   },
@@ -146,25 +146,28 @@ function updateProgress(){
     const currentTime = audioPlayer.currentTime;
     progressBar.style.width = `${(currentTime / totTime) * 100}%`;
 
+    if(timeOver == totalTime){
+      const currentPlaylist = Number(curr_song[0]);
+      let currentSong = Number(curr_song[1]);
+      playSong(currentPlaylist, currentSong+1);
+    }
+
     if (timeOver) {
       timeOver.textContent = formatTime(currentTime);
     }
     if (totalTime && !isNaN(totTime)) {
       totalTime.textContent = formatTime(totTime);
     }
+
+    const progressContainer = document.querySelector('.songProgressBar');
+    progressContainer.addEventListener('click', (e) => {
+      if (curr_song[0] === -1 || curr_song[1] === -1) return; 
+      const percent = (e.offsetX / progressContainer.clientWidth) * 100;
+      progressBar.style.width = `${percent}%`;
+      let songTime = (percent / 100) * totTime;
+      audioPlayer.currentTime = songTime;
+    });
   }
-  // const progressContainer = document.querySelector('.songProgressBar');
-  // progressContainer.addEventListener('click', (e) => {
-  //   if (curr_song[0] === -1 || curr_song[1] === -1) return; 
-  //   let percent = (e.offsetX / progressContainer.clientWidth) * 100;
-  //   console.log("width: " + percent);
-  //   progressBar.style.width = `${percent}%`;
-
-  //   let songTime = (percent / 100) * totTime;
-  //   console.log("songTime: " + songTime);
-  //   audioPlayer.currentTime = songTime;
-  // });
-
 }
 
 // It updates song images bg image and song icon and plays updated song.
@@ -174,6 +177,7 @@ function playSong(playlistIndex, songIndex) {
   if (song) {
     audioPlayer.src = song.EmbedURL;
     audioPlayer.play();
+    console.log('play');
     songName_in_controls.innerHTML = song.song_name;
     artistName_in_controls.innerHTML = song.artist_name;
     playerImg.src = song.song_img;
@@ -243,6 +247,8 @@ function renderList(songs, listIdx) {
         playerImg.src = songs[songIdx].song_img;
         audioPlayer.src = songs[songIdx].EmbedURL; // Set the audio source
         audioPlayer.play(); // Play the audio
+        console.log('play');
+        curr_song;
         playSong(listIdx, songIdx);
         songName_in_controls.innerHTML = songs[songIdx].song_name;
         artistName_in_controls.innerHTML = songs[songIdx].artist_name;
@@ -326,16 +332,17 @@ prev.addEventListener("click", function () {
 
 // Next button functionality
 next.addEventListener("click", function () {
-  let currentPlaylist = curr_song[0];
+  console.log('clicked');
+  const currentPlaylist = curr_song[0];
   let currentSong = curr_song[1];
 
-  if (currentPlaylist === -1 || currentSong === -1) return; // Prevent errors if no song is playing
+  if (currentPlaylist === -1 || currentSong === -1) return; 
 
-  let playlistSongs = playlists[currentPlaylist].songs; 
-  let nextSongIndex = currentSong + 1;
-
-  if (nextSongIndex >= playlistSongs.length) {
-    nextSongIndex = 0; // Loop back to the first song if at the end
+  let nextSongIndex = Number(currentSong) + 1;
+  // In js arrays are considered as objects so typeof currentSong is object it would be 0 : "-1" where -1 is string so curr_song[1] is string so we need to convert it into number or else next won't work properly
+  if (nextSongIndex > playlists[currentPlaylist].songs.length - 1) {
+    console.log(nextSongIndex + ' > ' + playlists[currentPlaylist].songs.length - 1);
+    nextSongIndex = 0;
   }
 
   playSong(currentPlaylist, nextSongIndex);
@@ -346,6 +353,7 @@ next.addEventListener("click", function () {
     songImage_in_controls.src = songData.song_img;
   }
 });
+
 
 
 // Automatically play the next song when the current song ends
