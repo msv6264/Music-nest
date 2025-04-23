@@ -119,10 +119,10 @@ li{
 }
 
 .pbg2 img { 
-    /* width: 670px !important;
-    height: 400px !important; */
-    width: 98% !important;
-    height: 100% !important;
+    width: 670px !important;
+    height: 400px !important;
+    /* width: 98% !important;
+    height: 100% !important; */
     margin: 10px 0 0 17px !important;
     border-radius: 18px;
     object-fit: cover !important;
