@@ -5,6 +5,10 @@
     /* overflow-y: hidden; */
 }
 
+main{
+    margin-bottom: 7%;
+}
+
 .nav-links{
     display: flex;
     gap: 35px;
@@ -108,16 +112,17 @@ li{
 }
 
 .pbg img {
-    width: 64%;
+    margin: 0;
+    width: 98%;
     height: 100%;
-    margin-top: 10px;
-    margin-left: 10px;
     border-radius: 18px;
 }
 
 .pbg2 img { 
-    width: 670px !important;
-    height: 400px !important;
+    /* width: 670px !important;
+    height: 400px !important; */
+    width: 98% !important;
+    height: 100% !important;
     margin: 10px 0 0 17px !important;
     border-radius: 18px;
     object-fit: cover !important;
@@ -157,14 +162,22 @@ li{
     font-weight: 700;
 }
 
+.listsBg{
+    display: flex;
+    flex-direction: row !important;
+}
+
+.bgAndArtists{
+    width: 65%;
+    padding: 0;
+}
+
 .DevotionalList{
-    position: absolute;
+    /* position: absolute; */
     display: flex;
     flex-direction: column;
-    top: 15.4%;
-    left: 75%;
     height: 80%;
-    width: 22%;
+    width: 38%;
     border-radius: 15px;
     gap: 15px;
     /* border: 2px solid #a22844; */
@@ -229,7 +242,7 @@ li{
 }
 
 .artists{
-    width: 80%;
+    width: 100%;
     font-size: 20px;
     color: #a22844;
     flex-wrap: wrap !important;
@@ -243,7 +256,7 @@ li{
 }
 
 .artists{
-    gap: 80px;
+    gap: 70px;
 }
 
 .trndy1, .trndy2, .trndy3{
@@ -252,6 +265,7 @@ li{
 }
 
 .musicControls {
+    background: #60a0bb;
     display: flex;
     margin: auto;
     align-items: center;
@@ -318,17 +332,6 @@ li{
     text-overflow: ellipsis;
 }
 
-.songProgressBar{
-    position: absolute;
-    width: 20%;
-    height: 5px;
-    background-color: #a22844;
-    top: 66px;
-    z-index: 1000;
-    border-radius: 10px;
-    left: 43%;
-}
-
 .playBtn, .pauseBtn, .nextBtn, .prevBtn{
     position: absolute;
     color: #a22844 !important;
@@ -351,7 +354,7 @@ li{
 }
 
 .nextBtn{
-    left: 55%;
+    right: 40%;
     width: 33px;
 }
 
@@ -360,12 +363,48 @@ li{
     width: 33px;
 }
 
-#musicLvl{
-    position: absolute;
-    width: 20%;
-    margin-top: 10px;
-    margin-left: -25%;
+.timeOver, .timeLeft {
+    color: #a22844;
+    font-size: 20px;
+    font-weight: 500;
+    width: 60px; 
+    text-align: center;
 }
+
+.songProgressBar {
+    flex-grow: 1;
+    max-width: 340px;
+    height: 5px;
+    background-color: #8b88bc;
+    border-radius: 10px;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+}
+
+.SongProgress{
+    margin: 0;
+    padding: 0;
+    height: 5px;
+    background-color: #a22844;
+    cursor: pointer;
+    border-radius: 10px;
+    width: 0%;
+    max-width: 257px;
+    transition: width 0.2s linear;
+}
+
+.musicLvl {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 39%;
+    margin-top: 3%;
+    gap: 10px;
+    width: 410px;
+}
+
 
 #player {
     width: 0px;
@@ -376,6 +415,10 @@ li{
 
 /* For smaller screens */
 @media (max-width: 800px) {
+    main{
+        margin-bottom: 10%;
+    }
+
     .navdiv {
         flex-wrap: wrap;
         align-items: center;
@@ -435,6 +478,76 @@ li{
         font-size: 1.2em;
         margin-left: 23%;
     }
+
+    .artists{
+        margin-left: 20px;
+        width: 95%;
+        font-size: 15px;
+        color: #a22844;
+        flex-wrap: wrap !important;
+        gap: 3%;
+    }
+
+    .artists img{
+        width: 70px;
+        height: 70px;
+    }
+
+    .DevotionalList{
+        margin-left: 35px;
+        display: flex;
+        flex-direction: column;
+        height: 80%;
+        width: 85%;
+        border-radius: 15px;
+        gap: 15px;
+        font-family: "Lato", sans-serif;
+    }
+
+    .playerBg{
+        position: relative;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+    
+    .pbg img {
+        width: 96%;
+        height: 100%;
+    }
+    
+    .pbg2 img { 
+        width: 500px !important;
+        height: 320px !important;
+    }
+
+    .listsBg{
+        flex-direction: column !important;
+    }
+
+    .bgAndArtists{
+        width: 100% !important;
+    }
+
+    /* .controlSymbols{
+        position: absolute;
+        width: 80%;
+        margin-left: 23%;
+    }
+
+    .timeOver, .timeLeft {
+        color: #a22844;
+        font-size: 20px;
+        font-weight: 500;
+        width: 60px; 
+        text-align: center;
+    }
+    
+    .songProgressBar {
+        margin-top: 2% !important;
+        height: 4px;
+        width: 3% !important;
+    } */
+
 }
 
 @media (max-width: 530px) {
